@@ -1,0 +1,83 @@
+<div class="container">
+    <mat-card>
+
+        <mat-card-content [hidden]="isLoading">
+            <app-loader [isLoading]="isLoading" size="1.5"></app-loader>
+            <div style="width: 50%;margin: 0 auto;">
+                <form class="example-form" [formGroup]="validationForm">
+                    <mat-form-field #hasMessage class="example-full-width">
+                        <input [disabled]="true" id="number" class="form-control" formControlName="number" type="text"
+                               [(ngModel)]="number" (ngModelChange)="onChangeNumber(number)" matInput
+                               placeholder="Number">
+                        <div *ngIf="!validationForm.get('number').valid && (validationForm.get('number').dirty || validationForm.get('number').touched)"
+                             class="alert alert-danger">
+                            <div *ngIf="validationForm.get('number').errors.required">
+                                Number is required.
+                            </div>
+                            <div *ngIf="validationForm.get('number').errors.minlength">
+                                Number must be at least 10 characters
+                            </div>
+                            <div *ngIf="validationForm.get('number').errors.maxlength">
+                                Number must beless than 15 characters
+                            </div>
+                        </div>
+                    </mat-form-field>
+                    <span *ngIf="changeNumber == false && (validationForm.get('number').dirty || validationForm.get('number').touched)">Number phone must be indonesian number (+62xxxxxxxxxxx)</span>
+                    <mat-form-field class="example-full-width">
+                        <input formControlName="firstName" [(ngModel)]="firstName" matInput placeholder="First Name">
+                        <div *ngIf="!validationForm.get('firstName').valid && (validationForm.get('firstName').dirty || validationForm.get('firstName').touched)"
+                             class="alert alert-danger">
+
+                            <div *ngIf="validationForm.get('firstName').errors.required">
+                                First Name is Required.
+                            </div>
+                        </div>
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width">
+                        <input formControlName="lastName" [(ngModel)]="lastName" matInput placeholder="Last Name">
+                        <div *ngIf="!validationForm.get('lastName').valid && (validationForm.get('lastName').dirty || validationForm.get('lastName').touched)"
+                             class="alert alert-danger">
+
+                            <div *ngIf="validationForm.get('lastName').errors.required">
+                                Last Name is Required.
+                            </div>
+                        </div>
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width">
+                        <input [(ngModel)]="birthDate" formControlName="birthDate" matInput [matDatepicker]="picker"
+                               placeholder="Birth Date">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                    <br>
+                    <mat-radio-group formControlName="gender" [(ngModel)]="gender" aria-label="Select an option">
+                        <mat-radio-button value="male">Male</mat-radio-button>
+                        <mat-radio-button value="female">Female</mat-radio-button>
+                    </mat-radio-group>
+                    <mat-form-field class="example-full-width">
+                        <input #hasMessage id="email" name="email" formControlName="email" [(ngModel)]="email" matInput
+                               placeholder="Email">
+                        <div *ngIf="!validationForm.get('email').valid && (validationForm.get('email').dirty || validationForm.get('email').touched)"
+                             class="alert alert-danger">
+                            <div *ngIf="validationForm.get('email').errors.required">
+                                Email is required
+                            </div>
+                            <div *ngIf="validationForm.get('email').errors.email">
+                                Email is not valid
+                            </div>
+                        </div>
+                    </mat-form-field>
+                    <button mat-stroked-button class="register-Button" [disabled]="!validationForm.valid"
+                            (click)="insertUser()">Register
+                    </button>
+                    <a routerLink="/login">
+                        <button *ngIf="isHide" mat-stroked-button class="login-button" (click)="login()">Login</button>
+                    </a>
+
+                </form>
+            </div>
+        </mat-card-content>
+
+
+    </mat-card>
+</div>
